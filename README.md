@@ -1,5 +1,5 @@
 # Particle-Swarm-Optimization-PSO-_C----
-#粒子群算法—C++实现：
+#粒子群算法：http://zh.wikipedia.org/wiki/%E5%BE%AE%E7%B2%92%E7%BE%A4%E7%AE%97%E6%B3%95
 
 ##PSO是通过模拟鸟群觅食行为而发展起来的一种基于群体协作的随机搜索算法。通常认为它是群集智能 (Swarm intelligence, SI)的一种。
 
