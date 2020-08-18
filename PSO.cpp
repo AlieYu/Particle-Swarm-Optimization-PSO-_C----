@@ -6,7 +6,6 @@
 /************************************************************************/ 
 
   
-#ifndef _PSO_H
 
 #include<stdlib.h>
 #include<time.h>
@@ -183,7 +182,7 @@ void PSO::Initialize()
 		{
 			Particle[i].X[j]=rand()/(double)RAND_MAX*(Xup[j]-Xdown[j])+Xdown[j];//随机初始化坐标
 			Particle[i].XBest[j]=Particle[i].X[j];
-			Particle[i].V[j]=rand()/(double)RAND_MAX*Vmax[j]-Vmax[j]/2;//随机初始化速度
+			Particle[i].V[j]=(rand()/(double)RAND_MAX-0.5)* Vmax[j];//随机初始化速度
 		}
 		Particle[i].Fit=GetFit(Particle[i]);//计算每个微粒适合度
 		Particle[i].FitBest=Particle[i].Fit;//计算最优适合度值
@@ -219,7 +218,7 @@ void PSO::ParticleFly()
 
 	static int kk=2;//迭代次数
 	double W;
-	W=W_max-kk*(W_max-W_min)/IteorMax;
+	W=W_max-kk*(W_max-W_min)/IteorMax;//由于W由IteorMax计算，Run前需要先设置IteorMax。
 	kk++;
 
 	//整个群体飞向新的位置
@@ -232,7 +231,7 @@ void PSO::ParticleFly()
 							 rand()/(double)RAND_MAX*C2*(Particle[GBestIndex].XBest[j]-Particle[i].X[j]);
 
 		}
-		for(j=0;j<Particle[i].Dim;j++)
+		for(int j=0;j<Particle[i].Dim;j++)
 		{
 			if(Particle[i].V[j]>Vmax[j])
 			{
@@ -243,7 +242,7 @@ void PSO::ParticleFly()
 				Particle[i].V[j]=-Vmax[j];
 			}
 		}
-		for(j=0;j<Particle[i].Dim;j++)
+		for(int j=0;j<Particle[i].Dim;j++)
 		{
 			Particle[i].X[j]+=Particle[i].V[j];//修改坐标
 			if(Particle[i].X[j]>Xup[j])
@@ -264,7 +263,7 @@ void PSO::ParticleFly()
 		FitBak[i]=Particle[i].Fit;
 	}
 	//设置个体的最好位置
-	for(i=0;i<PNum;i++)
+	for(int i=0;i<PNum;i++)
 	{
 		if(Particle[i].Fit>=Particle[i].FitBest)
 		{
@@ -303,7 +302,7 @@ PARTICLE& PSO::Run(int n)
 			{
 				opt_p[k]=Particle[GBestIndex].XBest[k];//拷贝当前最优点坐标
 			}
-			for(k=0;k<PNum;k++)
+			for(int k=0;k<PNum;k++)
 			{
 				opt_a[k]=Particle[k].X;//指向所有点坐标
 			}
@@ -333,7 +332,7 @@ PARTICLE& PSO::Run(double fit)
 			{
 				opt_p[k]=Particle[GBestIndex].XBest[k];//拷贝最优点坐标
 			}
-			for(k=0;k<PNum;k++)
+			for(int k=0;k<PNum;k++)
 			{
 				opt_a[k]=Particle[k].X;//指向所有点坐标
 			}
